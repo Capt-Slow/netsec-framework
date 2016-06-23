@@ -50,6 +50,8 @@ ___________                                                __
                     deb_install_extras()
                 elif inopt == 'back':
                     break
+                elif inopt == 'home':
+                    main()
         elif value == '3':
             while True:
                 scan_type = raw_input('1) Discovery Scan\n'
@@ -553,6 +555,8 @@ def dep_install_repos():
             print srclst.read()
         elif iopt == 'back':
             break
+        elif iopt == 'home':
+            main()
 
 
 def deb_install_fw_packages():
@@ -576,6 +580,8 @@ def deb_install_fw_packages():
             os.system('apt-get install nmap dsniff sslstrip ettercap')
         elif sl_pckg == 'back':
             break
+        elif sl_pckg == 'home':
+            main()
 
 
 def deb_install_extras():
@@ -626,6 +632,8 @@ def deb_install_extras():
             install_re_tools()
         elif exopt == '14':
             install_hw_tools()
+        elif exopt == 'home':
+            main()
 
 
 def install_info_tools():
@@ -646,17 +654,20 @@ def install_info_tools():
             print i
         info_tools_opt = raw_input('\033[1;32mYour Selection >>\033[1;m  ')
         tx = []
-        for i in info_tools_arr:
-            tx.append(i.split(' '))
-        print 'Installing.. ' + tx[int(info_tools_opt)][1]
-        if int(info_tools_opt) < 54:
-            os.system('apt-get install ' + tx[int(info_tools_opt)][1])
-        if info_tools_opt == '54':
-            print '(please be patient)'
-            for i in xrange(54):
-                os.system('apt-get install -y ' + tx[i][1])
+        if info_tools_opt == int:
+            for i in info_tools_arr:
+                tx.append(i.split(' '))
+            print 'Installing.. ' + tx[int(info_tools_opt)][1]
+            if int(info_tools_opt) < 54:
+                os.system('apt-get install ' + tx[int(info_tools_opt)][1])
+            if info_tools_opt == '54':
+                print '(please be patient)'
+                for i in xrange(54):
+                    os.system('apt-get install -y ' + tx[i][1])
         elif info_tools_opt == 'back':
-            break
+            deb_install_extras()
+        elif info_tools_opt == 'home':
+            main()
 
 
 def install_vuln_tools():
@@ -674,17 +685,20 @@ def install_vuln_tools():
             print i
         vuln_tools_opt = raw_input('\033[1;32mYour Selection >>\033[1;m  ')
         tx = []
-        for i in vuln_tools_arr:
-            tx.append(i.split(' '))
-        print 'Installing.. ' + tx[int(vuln_tools_opt)][1]
-        if int(vuln_tools_opt) < 31:
-            os.system('apt-get install ' + tx[int(vuln_tools_opt)][1])
-        if vuln_tools_opt == '31':
-            print '(please be patient)'
-            for i in xrange(31):
-                os.system('apt-get install -y ' + tx[i][1])
+        if vuln_tools_opt == int:
+            for i in vuln_tools_arr:
+                tx.append(i.split(' '))
+            print 'Installing.. ' + tx[int(vuln_tools_opt)][1]
+            if int(vuln_tools_opt) < 31:
+                os.system('apt-get install ' + tx[int(vuln_tools_opt)][1])
+            if vuln_tools_opt == '31':
+                print '(please be patient)'
+                for i in xrange(31):
+                    os.system('apt-get install -y ' + tx[i][1])
         elif vuln_tools_opt == 'back':
-            break
+            deb_install_extras()
+        elif vuln_tools_opt == 'home':
+            main()
 
 
 def install_wifi_tools():
@@ -701,17 +715,20 @@ def install_wifi_tools():
             print i
         wifi_tools_opt = raw_input('\033[1;32mYour Selection >>\033[1;m  ')
         tx = []
-        for i in wifi_tools_arr:
-            tx.append(i.split(' '))
-        if int(wifi_tools_opt) < 29:
-            print 'Installing.. ' + tx[int(wifi_tools_opt)][1]
-            os.system('apt-get install ' + tx[int(wifi_tools_opt)][1])
-        if wifi_tools_opt == '29':
-            print '(please be patient)'
-            for i in xrange(29):
-                os.system('apt-get install -y ' + tx[i][1])
-        if wifi_tools_opt == 'back':
-            break
+        if wifi_tools_opt == int:
+            for i in wifi_tools_arr:
+                tx.append(i.split(' '))
+            if int(wifi_tools_opt) < 29:
+                print 'Installing.. ' + tx[int(wifi_tools_opt)][1]
+                os.system('apt-get install ' + tx[int(wifi_tools_opt)][1])
+            if wifi_tools_opt == '29':
+                print '(please be patient)'
+                for i in xrange(29):
+                    os.system('apt-get install -y ' + tx[i][1])
+        elif wifi_tools_opt == 'back':
+            deb_install_extras()
+        elif wifi_tools_opt == 'home':
+            main()
 
 
 def install_web_tools():
@@ -729,17 +746,20 @@ def install_web_tools():
             print i
         web_tools_opt = raw_input('\033[1;32mYour Selection >>\033[1;m  ')
         tx = []
-        for i in web_tools_arr:
-            tx.append(i.split(' '))
-        if int(web_tools_opt) < 39:
-            print 'Installing.. ' + tx[int(web_tools_opt)][1]
-            os.system('apt-get install ' + tx[int(web_tools_opt)][1])
-        if web_tools_opt == '39':
-            print '(please be patient)'
-            for i in xrange(39):
-                os.system('apt-get install -y ' + tx[i][1])
-        if web_tools_opt == 'back': #if not type int
-            break
+        if web_tools_opt == int:
+            for i in web_tools_arr:
+                tx.append(i.split(' '))
+            if int(web_tools_opt) < 39:
+                print 'Installing.. ' + tx[int(web_tools_opt)][1]
+                os.system('apt-get install ' + tx[int(web_tools_opt)][1])
+            if web_tools_opt == '39':
+                print '(please be patient)'
+                for i in xrange(39):
+                    os.system('apt-get install -y ' + tx[i][1])
+        elif web_tools_opt == 'back':
+            deb_install_extras()
+        elif web_tools_opt == 'home':
+            main()
 
 
 def install_sniff_tools():
@@ -756,17 +776,20 @@ def install_sniff_tools():
             print i
         sniff_tools_opt = raw_input('\033[1;32mYour Selection >>\033[1;m  ')
         tx = []
-        for i in sniff_tools_arr:
-            tx.append(i.split(' '))
-        if int(sniff_tools_opt) < 28:
-            print 'Installing.. ' + tx[int(sniff_tools_opt)][1]
-            os.system('apt-get install ' + tx[int(sniff_tools_opt)][1])
-        if sniff_tools_opt == '28':
-            print '(please be patient)'
-            for i in xrange(28):
-                os.system('apt-get install -y ' + tx[i][1])
-        if sniff_tools_opt != int:
-            break
+        if sniff_tools_opt == int:
+            for i in sniff_tools_arr:
+                tx.append(i.split(' '))
+            if int(sniff_tools_opt) < 28:
+                print 'Installing.. ' + tx[int(sniff_tools_opt)][1]
+                os.system('apt-get install ' + tx[int(sniff_tools_opt)][1])
+            if sniff_tools_opt == '28':
+                print '(please be patient)'
+                for i in xrange(28):
+                    os.system('apt-get install -y ' + tx[i][1])
+        elif sniff_tools_opt == 'back':
+            deb_install_extras()
+        elif sniff_tools_opt == 'home':
+            main()
 
 
 def install_maint_tools():
@@ -781,17 +804,20 @@ def install_maint_tools():
             print i
         maint_tools_opt = raw_input('\033[1;32mYour Selection >>\033[1;m  ')
         tx = []
-        for i in maint_tools_arr:
-            tx.append(i.split(' '))
-        if int(maint_tools_opt) < 18:
-            print 'Installing.. ' + tx[int(maint_tools_opt)][1]
-            os.system('apt-get install ' + tx[int(maint_tools_opt)][1])
-        if maint_tools_opt == '18':
-            print '(please be patient)'
-            for i in xrange(18):
-                os.system('apt-get install -y ' + tx[i][1])
-        if maint_tools_opt != int:
-            break
+        if maint_tools_opt == int:
+            for i in maint_tools_arr:
+                tx.append(i.split(' '))
+            if int(maint_tools_opt) < 18:
+                print 'Installing.. ' + tx[int(maint_tools_opt)][1]
+                os.system('apt-get install ' + tx[int(maint_tools_opt)][1])
+            if maint_tools_opt == '18':
+                print '(please be patient)'
+                for i in xrange(18):
+                    os.system('apt-get install -y ' + tx[i][1])
+        elif maint_tools_opt == 'back':
+            deb_install_extras()
+        elif maint_tools_opt == 'home':
+            main()
 
 
 def install_rpt_tools():
@@ -805,17 +831,20 @@ def install_rpt_tools():
             print i
         rpt_tools_opt = raw_input('\033[1;32mYour Selection >>\033[1;m  ')
         tx = []
-        for i in rpt_tools_arr:
-            tx.append(i.split(' '))
-        if int(rpt_tools_opt) < 9:
-            print 'Installing.. ' + tx[int(rpt_tools_opt)][1]
-            os.system('apt-get install ' + tx[int(rpt_tools_opt)][1])
-        if rpt_tools_opt == '9':
-            print '(please be patient)'
-            for i in xrange(9):
-                os.system('apt-get install -y ' + tx[i][1])
-        if rpt_tools_opt != int:
-            break
+        if rpt_tools_opt == int:
+            for i in rpt_tools_arr:
+                tx.append(i.split(' '))
+            if int(rpt_tools_opt) < 9:
+                print 'Installing.. ' + tx[int(rpt_tools_opt)][1]
+                os.system('apt-get install ' + tx[int(rpt_tools_opt)][1])
+            if rpt_tools_opt == '9':
+                print '(please be patient)'
+                for i in xrange(9):
+                    os.system('apt-get install -y ' + tx[i][1])
+        elif rpt_tools_opt == 'back':
+            deb_install_extras()
+        elif rpt_tools_opt == 'home':
+            main()
 
 
 def install_exp_tools():
@@ -830,17 +859,20 @@ def install_exp_tools():
             print i
         exp_tools_opt = raw_input('\033[1;32mYour Selection >>\033[1;m  ')
         tx = []
-        for i in exp_tools_arr:
-            tx.append(i.split(' '))
-        if int(exp_tools_opt) < 16:
-            print 'Installing.. ' + tx[int(exp_tools_opt)][1]
-            os.system('apt-get install ' + tx[int(exp_tools_opt)][1])
-        if exp_tools_opt == '16':
-            print '(please be patient)'
-            for i in xrange(16):
-                os.system('apt-get install -y ' + tx[i][1])
-        if exp_tools_opt != int:
-            break
+        if exp_tools_opt == int:
+            for i in exp_tools_arr:
+                tx.append(i.split(' '))
+            if int(exp_tools_opt) < 16:
+                print 'Installing.. ' + tx[int(exp_tools_opt)][1]
+                os.system('apt-get install ' + tx[int(exp_tools_opt)][1])
+            if exp_tools_opt == '16':
+                print '(please be patient)'
+                for i in xrange(16):
+                    os.system('apt-get install -y ' + tx[i][1])
+        elif exp_tools_opt == 'back':
+            deb_install_extras()
+        elif exp_tools_opt == 'home':
+            main()
 
 
 def install_fore_tools():
@@ -856,17 +888,20 @@ def install_fore_tools():
             print i
         fore_tools_opt = raw_input('\033[1;32mYour Selection >>\033[1;m  ')
         tx = []
-        for i in fore_tools_arr:
-            tx.append(i.split(' '))
-        if int(fore_tools_opt) < 21:
-            print 'Installing.. ' + tx[int(fore_tools_opt)][1]
-            os.system('apt-get install ' + tx[int(fore_tools_opt)][1])
-        if fore_tools_opt == '21':
-            print '(please be patient)'
-            for i in xrange(21):
-                os.system('apt-get install -y ' + tx[i][1])
-        if fore_tools_opt != int:
-            break
+        if fore_tools_opt == int:
+            for i in fore_tools_arr:
+                tx.append(i.split(' '))
+            if int(fore_tools_opt) < 21:
+                print 'Installing.. ' + tx[int(fore_tools_opt)][1]
+                os.system('apt-get install ' + tx[int(fore_tools_opt)][1])
+            if fore_tools_opt == '21':
+                print '(please be patient)'
+                for i in xrange(21):
+                    os.system('apt-get install -y ' + tx[i][1])
+        elif fore_tools_opt == 'back':
+            deb_install_extras()
+        elif fore_tools_opt == 'home':
+            main()
 
 
 def install_stress_tools():
@@ -880,17 +915,20 @@ def install_stress_tools():
             print i
         stress_tools_opt = raw_input('\033[1;32mYour Selection >>\033[1;m  ')
         tx = []
-        for i in stress_tools_arr:
-            tx.append(i.split(' '))
-        if int(stress_tools_opt) < 12:
-            print 'Installing.. ' + tx[int(stress_tools_opt)][1]
-            os.system('apt-get install ' + tx[int(stress_tools_opt)][1])
-        if stress_tools_opt == '12':
-            print '(please be patient)'
-            for i in xrange(12):
-                os.system('apt-get install -y ' + tx[i][1])
-        if stress_tools_opt != int:
-            break
+        if stress_tools_opt == int:
+            for i in stress_tools_arr:
+                tx.append(i.split(' '))
+            if int(stress_tools_opt) < 12:
+                print 'Installing.. ' + tx[int(stress_tools_opt)][1]
+                os.system('apt-get install ' + tx[int(stress_tools_opt)][1])
+            if stress_tools_opt == '12':
+                print '(please be patient)'
+                for i in xrange(12):
+                    os.system('apt-get install -y ' + tx[i][1])
+        elif stress_tools_opt == 'back':
+            deb_install_extras()
+        elif stress_tools_opt == 'home':
+            main()
 
 
 def install_pw_tools():
@@ -908,17 +946,20 @@ def install_pw_tools():
             print i
         pw_tools_opt = raw_input('\033[1;32mYour Selection >>\033[1;m  ')
         tx = []
-        for i in pw_tools_arr:
-            tx.append(i.split(' '))
-        if int(pw_tools_opt) < 34:
-            print 'Installing.. ' + tx[int(pw_tools_opt)][1]
-            os.system('apt-get install ' + tx[int(pw_tools_opt)][1])
-        if pw_tools_opt == '34':
-            print '(please be patient)'
-            for i in xrange(34):
-                os.system('apt-get install -y ' + tx[i][1])
-        if pw_tools_opt != int:
-            break
+        if pw_tools_opt == int:
+            for i in pw_tools_arr:
+                tx.append(i.split(' '))
+            if int(pw_tools_opt) < 34:
+                print 'Installing.. ' + tx[int(pw_tools_opt)][1]
+                os.system('apt-get install ' + tx[int(pw_tools_opt)][1])
+            if pw_tools_opt == '34':
+                print '(please be patient)'
+                for i in xrange(34):
+                    os.system('apt-get install -y ' + tx[i][1])
+        elif pw_tools_opt == 'back':
+            deb_install_extras()
+        elif pw_tools_opt == 'home':
+            main()
 
 
 def install_re_tools():
@@ -932,17 +973,20 @@ def install_re_tools():
             print i
         re_tools_opt = raw_input('\033[1;32mYour Selection >>\033[1;m  ')
         tx = []
-        for i in re_tools_arr:
-            tx.append(i.split(' '))
-        if int(re_tools_opt) < 11:
-            print 'Installing.. ' + tx[int(re_tools_opt)][1]
-            os.system('apt-get install ' + tx[int(re_tools_opt)][1])
-        if re_tools_opt == '11':
-            print '(please be patient)'
-            for i in xrange(11):
-                os.system('apt-get install -y ' + tx[i][1])
-        if re_tools_opt != int:
-            break
+        if re_tools_opt == int:
+            for i in re_tools_arr:
+                tx.append(i.split(' '))
+            if int(re_tools_opt) < 11:
+                print 'Installing.. ' + tx[int(re_tools_opt)][1]
+                os.system('apt-get install ' + tx[int(re_tools_opt)][1])
+            if re_tools_opt == '11':
+                print '(please be patient)'
+                for i in xrange(11):
+                    os.system('apt-get install -y ' + tx[i][1])
+        elif re_tools_opt == 'back':
+            deb_install_extras()
+        elif re_tools_opt == 'home':
+            main()
 
 
 def install_hw_tools():
@@ -955,17 +999,20 @@ def install_hw_tools():
             print i
         hw_tools_opt = raw_input('\033[1;32mYour Selection >>\033[1;m  ')
         tx = []
-        for i in hw_tools_arr:
-            tx.append(i.split(' '))
-        if int(hw_tools_opt) < 11:
-            print 'Installing.. ' + tx[int(hw_tools_opt)][1]
-            os.system('apt-get install ' + tx[int(hw_tools_opt)][1])
-        if hw_tools_opt == '11':
-            print '(please be patient)'
-            for i in xrange(11):
-                os.system('apt-get install -y ' + tx[i][1])
-        if hw_tools_opt != int:
-            break
+        if hw_tools_opt == int:
+            for i in hw_tools_arr:
+                tx.append(i.split(' '))
+            if int(hw_tools_opt) < 11:
+                print 'Installing.. ' + tx[int(hw_tools_opt)][1]
+                os.system('apt-get install ' + tx[int(hw_tools_opt)][1])
+            if hw_tools_opt == '11':
+                print '(please be patient)'
+                for i in xrange(11):
+                    os.system('apt-get install -y ' + tx[i][1])
+        elif hw_tools_opt == 'back':
+            deb_install_extras()
+        elif hw_tools_opt == 'home':
+            main()
 
 
 def ip_forward():
@@ -986,6 +1033,7 @@ def ip_forward():
             print ipfw.read()
         elif on_off == 'back':
             break
+
 
 def mim_iptables():
     while True:
@@ -1010,6 +1058,8 @@ def mim_iptables():
             os.system('iptables -L')
         elif table_tgl == 'back':
             break
+        elif table_tgl == 'home':
+            main()
 
 
 def mim_arpspoof():
@@ -1072,20 +1122,22 @@ def mim_ettercap():
                             '\033[1;32mYour Selection >>\033[1;m')
         if ett_opt == '1':
             print 'Poisoning Gateway...'
-            os.system('ettercap -T -q -M ARP /{0}/// -w {1}/{2}.pcap >/dev/null 2>&1 &'.format(get_local_gateway(), expanduser('~'),
-                                                                        ptime.strftime("%s")))
+            os.system('ettercap -T -q -M ARP /{0}/// -w {1}/{2}.pcap >/dev/null 2>&1 &'
+                      .format(get_local_gateway(), expanduser('~'), ptime.strftime("%s")))
         elif ett_opt == '2':
             while True:
                 ett_ip = raw_input('\033[1;32mEnter the IP:\033[1;m')
                 break
             print 'Poisoning {0}'.format(ett_ip)
-            os.system('ettercap -T -q -M ARP /{0}/// -w {1}/{2}.pcap >/dev/null 2>&1 &'.format(ett_ip, expanduser('~'),
-                                                                                               ptime.strftime("%s")))
+            os.system('ettercap -T -q -M ARP /{0}/// -w {1}/{2}.pcap >/dev/null 2>&1 &'
+                      .format(ett_ip, expanduser('~'), ptime.strftime("%s")))
         elif ett_opt == '3':
             print 'Turning off ettercap..'
             proc_off('ettercap')
         elif ett_opt == 'back':
             break
+        elif ett_opt == 'home':
+            main()
 
 
 def mim_tcpdump():
@@ -1100,8 +1152,8 @@ def mim_tcpdump():
         else:
             print 'dumping...\n'
             print 'This will create a pcap file in your home dir.'
-            os.system('tcpdump -ni {0} -w {1}/{2}.pcap >/dev/null 2>&1 &'.format(tcp_face, expanduser('~'),
-                                                                                 t.strftime("%s")))
+            os.system('tcpdump -ni {0} -w {1}/{2}.pcap >/dev/null 2>&1 &'
+                      .format(tcp_face, expanduser('~'), t.strftime("%s")))
 
 
 if __name__ == "__main__":
