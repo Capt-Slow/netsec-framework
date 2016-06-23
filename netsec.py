@@ -569,15 +569,15 @@ def deb_install_fw_packages():
                             '5) Install All\n\n\n'
                             '\033[1;32mYour Selection >>\033[1;m  ')
         if sl_pckg == '1':
-            os.system('apt-get install nmap')
+            os.system('apt-get -y install nmap')
         elif sl_pckg == '2':
-            os.system('apt-get install dsniff')
+            os.system('apt-get -y install dsniff')
         elif sl_pckg == '3':
-            os.system('apt-get install sslstrip')
+            os.system('apt-get -y install sslstrip')
         elif sl_pckg == '4':
-            os.system('apt-get install ettercap-common')
+            os.system('apt-get -y install ettercap-common')
         elif sl_pckg == '5':
-            os.system('apt-get install nmap dsniff sslstrip ettercap')
+            os.system('apt-get -y install nmap dsniff sslstrip ettercap-common')
         elif sl_pckg == 'back':
             break
         elif sl_pckg == 'home':
@@ -659,7 +659,7 @@ def install_info_tools():
                 tx.append(i.split(' '))
             print 'Installing.. ' + tx[int(info_tools_opt)][1]
             if int(info_tools_opt) < 54:
-                os.system('apt-get install ' + tx[int(info_tools_opt)][1])
+                os.system('apt-get install -y ' + tx[int(info_tools_opt)][1])
             if info_tools_opt == '54':
                 print '(please be patient)'
                 for i in xrange(54):
@@ -690,7 +690,7 @@ def install_vuln_tools():
                 tx.append(i.split(' '))
             print 'Installing.. ' + tx[int(vuln_tools_opt)][1]
             if int(vuln_tools_opt) < 31:
-                os.system('apt-get install ' + tx[int(vuln_tools_opt)][1])
+                os.system('apt-get install -y ' + tx[int(vuln_tools_opt)][1])
             if vuln_tools_opt == '31':
                 print '(please be patient)'
                 for i in xrange(31):
@@ -720,7 +720,7 @@ def install_wifi_tools():
                 tx.append(i.split(' '))
             if int(wifi_tools_opt) < 29:
                 print 'Installing.. ' + tx[int(wifi_tools_opt)][1]
-                os.system('apt-get install ' + tx[int(wifi_tools_opt)][1])
+                os.system('apt-get install -y ' + tx[int(wifi_tools_opt)][1])
             if wifi_tools_opt == '29':
                 print '(please be patient)'
                 for i in xrange(29):
@@ -751,7 +751,7 @@ def install_web_tools():
                 tx.append(i.split(' '))
             if int(web_tools_opt) < 39:
                 print 'Installing.. ' + tx[int(web_tools_opt)][1]
-                os.system('apt-get install ' + tx[int(web_tools_opt)][1])
+                os.system('apt-get install -y ' + tx[int(web_tools_opt)][1])
             if web_tools_opt == '39':
                 print '(please be patient)'
                 for i in xrange(39):
@@ -781,7 +781,7 @@ def install_sniff_tools():
                 tx.append(i.split(' '))
             if int(sniff_tools_opt) < 28:
                 print 'Installing.. ' + tx[int(sniff_tools_opt)][1]
-                os.system('apt-get install ' + tx[int(sniff_tools_opt)][1])
+                os.system('apt-get install -y ' + tx[int(sniff_tools_opt)][1])
             if sniff_tools_opt == '28':
                 print '(please be patient)'
                 for i in xrange(28):
@@ -809,7 +809,7 @@ def install_maint_tools():
                 tx.append(i.split(' '))
             if int(maint_tools_opt) < 18:
                 print 'Installing.. ' + tx[int(maint_tools_opt)][1]
-                os.system('apt-get install ' + tx[int(maint_tools_opt)][1])
+                os.system('apt-get install -y ' + tx[int(maint_tools_opt)][1])
             if maint_tools_opt == '18':
                 print '(please be patient)'
                 for i in xrange(18):
@@ -836,7 +836,7 @@ def install_rpt_tools():
                 tx.append(i.split(' '))
             if int(rpt_tools_opt) < 9:
                 print 'Installing.. ' + tx[int(rpt_tools_opt)][1]
-                os.system('apt-get install ' + tx[int(rpt_tools_opt)][1])
+                os.system('apt-get install -y ' + tx[int(rpt_tools_opt)][1])
             if rpt_tools_opt == '9':
                 print '(please be patient)'
                 for i in xrange(9):
@@ -864,7 +864,7 @@ def install_exp_tools():
                 tx.append(i.split(' '))
             if int(exp_tools_opt) < 16:
                 print 'Installing.. ' + tx[int(exp_tools_opt)][1]
-                os.system('apt-get install ' + tx[int(exp_tools_opt)][1])
+                os.system('apt-get install -y ' + tx[int(exp_tools_opt)][1])
             if exp_tools_opt == '16':
                 print '(please be patient)'
                 for i in xrange(16):
@@ -893,7 +893,7 @@ def install_fore_tools():
                 tx.append(i.split(' '))
             if int(fore_tools_opt) < 21:
                 print 'Installing.. ' + tx[int(fore_tools_opt)][1]
-                os.system('apt-get install ' + tx[int(fore_tools_opt)][1])
+                os.system('apt-get install -y ' + tx[int(fore_tools_opt)][1])
             if fore_tools_opt == '21':
                 print '(please be patient)'
                 for i in xrange(21):
@@ -920,7 +920,7 @@ def install_stress_tools():
                 tx.append(i.split(' '))
             if int(stress_tools_opt) < 12:
                 print 'Installing.. ' + tx[int(stress_tools_opt)][1]
-                os.system('apt-get install ' + tx[int(stress_tools_opt)][1])
+                os.system('apt-get install -y ' + tx[int(stress_tools_opt)][1])
             if stress_tools_opt == '12':
                 print '(please be patient)'
                 for i in xrange(12):
@@ -951,7 +951,7 @@ def install_pw_tools():
                 tx.append(i.split(' '))
             if int(pw_tools_opt) < 34:
                 print 'Installing.. ' + tx[int(pw_tools_opt)][1]
-                os.system('apt-get install ' + tx[int(pw_tools_opt)][1])
+                os.system('apt-get install -y ' + tx[int(pw_tools_opt)][1])
             if pw_tools_opt == '34':
                 print '(please be patient)'
                 for i in xrange(34):
@@ -978,7 +978,7 @@ def install_re_tools():
                 tx.append(i.split(' '))
             if int(re_tools_opt) < 11:
                 print 'Installing.. ' + tx[int(re_tools_opt)][1]
-                os.system('apt-get install ' + tx[int(re_tools_opt)][1])
+                os.system('apt-get install -y ' + tx[int(re_tools_opt)][1])
             if re_tools_opt == '11':
                 print '(please be patient)'
                 for i in xrange(11):
@@ -1004,7 +1004,7 @@ def install_hw_tools():
                 tx.append(i.split(' '))
             if int(hw_tools_opt) < 11:
                 print 'Installing.. ' + tx[int(hw_tools_opt)][1]
-                os.system('apt-get install ' + tx[int(hw_tools_opt)][1])
+                os.system('apt-get install -y ' + tx[int(hw_tools_opt)][1])
             if hw_tools_opt == '11':
                 print '(please be patient)'
                 for i in xrange(11):
@@ -1033,6 +1033,8 @@ def ip_forward():
             print ipfw.read()
         elif on_off == 'back':
             break
+        elif on_off == 'home':
+            main()
 
 
 def mim_iptables():
