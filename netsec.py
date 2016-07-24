@@ -26,17 +26,17 @@ ___________                                                __
      '''
         print "\033[1;31mSome functionality requires root privelages..\033[1;m \n"
         print 'Welcome, please select from the following options:'
-        value = raw_input('1) Check for dependencies (Not Implemented)\n'
-                          '2) Install Dependencies\n'
-                          '3) Nmap Scan\n'
-                          '4) MIM Attacks\n'
-                          '0) Exit\n\n\n' #ifconfig capture ip address and run with it
+        value = raw_input(
+                          '1) Install Dependencies\n'
+                          '2) Nmap Scan\n'
+                          '3) MITM Attacks\n'
+                          '0) Exit\n\n\n'
                           '\033[1;32mYour Selection >>\033[1;m  ')
 
         if value == "q":
             print 'bye bye'
             break
-        elif value == '2':
+        elif value == '1':
             while True:
                 inopt = raw_input('1) Add/Remove Repos (Required Step)\n'
                                   '2) Install NetSec Packages\n'
@@ -52,7 +52,7 @@ ___________                                                __
                     break
                 elif inopt == 'home':
                     main()
-        elif value == '3':
+        elif value == '2':
             while True:
                 scan_type = raw_input('1) Discovery Scan\n'
                                       '2) Port Scan\n\n\n'
@@ -78,7 +78,7 @@ ___________                                                __
                     nmap_port(value)
                 else:
                     break
-        elif value == '4':
+        elif value == '3':
             while True:
                 mimopt = raw_input('1) ipv4 ip forward (Step 1)\n'
                                    '2) Configure iptables\n'
@@ -88,7 +88,7 @@ ___________                                                __
                                    '6) sslstrip off\n'
                                    '7) ettercap\n'
                                    '8) tcpdump\n'
-                                   '9) stop all MIM attacks\n\n\n'
+                                   '9) stop all MITM attacks\n\n\n'
                                    '\033[1;32mYour Selection >>\033[1;m')
                 if mimopt == '1':
                     ip_forward()
@@ -116,11 +116,6 @@ ___________                                                __
 
         elif value == '0':
             exit()
-
-
-def check_dependencies():
-    logging.basicConfig(level=logging.DEBUG)
-    True
 
 
 def nmap_discover(hostip):
