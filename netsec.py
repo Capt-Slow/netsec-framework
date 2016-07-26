@@ -561,7 +561,8 @@ def deb_install_fw_packages():
                             '2) dsniff\n'
                             '3) sslstrip\n'
                             '4) ettercap\n'
-                            '5) Install All\n\n\n'
+                            '5) net-tools\n'
+                            '6) Install All\n\n\n'
                             '\033[1;32mYour Selection >>\033[1;m  ')
         if sl_pckg == '1':
             os.system('apt-get -y install nmap')
@@ -572,7 +573,9 @@ def deb_install_fw_packages():
         elif sl_pckg == '4':
             os.system('apt-get -y install ettercap-common')
         elif sl_pckg == '5':
-            os.system('apt-get -y install nmap dsniff sslstrip ettercap-common')
+            os.system('apt-get -y install net-tools')
+        elif sl_pckg == '6':
+            os.system('apt-get -y install nmap dsniff sslstrip ettercap-common net-tools')
         elif sl_pckg == 'back':
             break
         elif sl_pckg == 'home':
