@@ -13,7 +13,7 @@ I wrote this framework with the following in mind:
 
 
 The idea was to be able to boot a vanilla Debian install and launch this CLI. 
-Without leaving the CLI the user would be able to setup their system and execute MITM attacks on their netework. 
+Without leaving the CLI the user would be able to setup their system and execute MITM attacks on their network.
 I attempted to make it as user friendly as possible for those learning network attacks.
 
 Instructions:
