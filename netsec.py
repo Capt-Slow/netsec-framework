@@ -571,16 +571,17 @@ def deb_install_fw_packages():
     while True:
         sl_pckg = raw_input('Select the following package to install:\n'
                             '1) nmap\n'
-                            '2) dsniff\n'
+                            '2) tcpdump\n'
                             '3) sslstrip\n'
                             '4) ettercap\n'
                             '5) net-tools\n'
-                            '6) Install All\n\n\n'
+                            '6) iptables\n'
+                            '7) Install All\n\n\n'
                             '\033[1;32mYour Selection >>\033[1;m  ')
         if sl_pckg == '1':
             os.system('apt-get -y install nmap')
         elif sl_pckg == '2':
-            os.system('apt-get -y install dsniff')
+            os.system('apt-get -y install tcpdump')
         elif sl_pckg == '3':
             os.system('apt-get -y install sslstrip')
         elif sl_pckg == '4':
@@ -588,7 +589,9 @@ def deb_install_fw_packages():
         elif sl_pckg == '5':
             os.system('apt-get -y install net-tools')
         elif sl_pckg == '6':
-            os.system('apt-get -y install nmap dsniff sslstrip ettercap-common net-tools')
+            os.system('apt-get -y install iptables')
+        elif sl_pckg == '7':
+            os.system('apt-get -y install nmap sslstrip ettercap-common net-tools tcpdump iptables')
         elif sl_pckg == 'back':
             break
         elif sl_pckg == 'home':
