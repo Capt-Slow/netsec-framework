@@ -59,6 +59,7 @@ ___________                                                __
                                       '\033[1;32mYour Selection >>\033[1;m  ')
                 if scan_type == '1':
                     value = raw_input('What is the ip range? (0.0.0.0/24, /16)\n'
+                                      'Auto scan presumes the use of eth0 (for now).'
                                       'Type auto for autoscan\n'
                                       '\033[1;32m>>\033[1;m  ')
                     if value == 'auto':
@@ -375,8 +376,8 @@ def nmap_port(ip):
                           '12) SCTP COOKIE ECHO (-sZ)\n'
                           '13) <zombie host>[:<probeport>] (idle scan) (-sI) (Coming soon..)\n'
                           '14) IP protocol (-sO)\n'
-                          '15) FTP bounce (-b) (Coming soon..)\n\n\n'
-                          'Your Selection >>  ')
+                          '15) Advanced Scan\n\n\n'
+                          '\033[1;32mYour Selection >>  \033[1;m')
         if value == '1':
             print 'SYN scan is the default and most popular scan option for good reasons. It can be performed quickly,\n' \
                   'scanning thousands of ports per second on a fast network not hampered by restrictive firewalls. '
@@ -508,6 +509,18 @@ def nmap_port(ip):
                 break
             else:
                 break
+        elif value == 'back':
+            break
+        elif value == '15':
+            while True:
+                print 'Add multiple flags separated by space.\n\n\n'
+                flg = raw_input('\033[1;32mFlags >>  \033[1;m')
+                time.sleep(2)
+                run_cmmnd = 'nmap ' + str(flg) + ' ' + str(ip)
+                print 'Running the following command: ' + run_cmmnd
+                os.system('nmap ' + str(flg) + ' ' + str(ip))
+                if flg == 'back':
+                    break
         elif value == 'back':
             break
 
