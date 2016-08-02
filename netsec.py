@@ -576,7 +576,8 @@ def deb_install_fw_packages():
                             '4) ettercap\n'
                             '5) net-tools\n'
                             '6) iptables\n'
-                            '7) Install All\n\n\n'
+                            '7) dsniff\n'
+                            '8) Install All\n\n\n'
                             '\033[1;32mYour Selection >>\033[1;m  ')
         if sl_pckg == '1':
             os.system('apt-get -y install nmap')
@@ -591,7 +592,9 @@ def deb_install_fw_packages():
         elif sl_pckg == '6':
             os.system('apt-get -y install iptables')
         elif sl_pckg == '7':
-            os.system('apt-get -y install nmap sslstrip ettercap-common net-tools tcpdump iptables')
+            os.system('apt-get -y install dsniff')
+        elif sl_pckg == '8':
+            os.system('apt-get -y install nmap sslstrip ettercap-common net-tools tcpdump iptables dsniff')
         elif sl_pckg == 'back':
             break
         elif sl_pckg == 'home':
