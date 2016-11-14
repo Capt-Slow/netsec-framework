@@ -536,9 +536,7 @@ def dep_install_repos():
             print '\033[5mAdding repos..\033[5;m'
             os.system("apt-key adv --keyserver pgp.mit.edu --recv-keys ED444FF07D8D0BF6")
             os.system("echo '# Kali linux repositories | Added by NetSec\n"
-                      "deb http://http.kali.org/kali sana main non-free contrib\n"
-                      "deb http://security.kali.org/kali-security sana/updates main contrib non-free\n"
-                      "deb http://repo.kali.org/kali kali-bleeding-edge main' >> /etc/apt/sources.list")
+                      "deb http://http.kali.org/kali kali-rolling main contrib non-free\n")
         elif iopt == '2':
             os.system('apt-get update -m')
         elif iopt == '3':
@@ -546,9 +544,7 @@ def dep_install_repos():
             infile = '/etc/apt/sources.list'
             outfile = '/etc/apt/sources.list'
             delete_list = ["# Kali linux repositories | Added by NetSec\n",
-                           "deb http://http.kali.org/kali sana main non-free contrib\n",
-                           "deb http://security.kali.org/kali-security sana/updates main contrib non-free\n",
-                           "deb http://repo.kali.org/kali kali-bleeding-edge main"]
+                           "deb http://http.kali.org/kali kali-rolling main contrib non-free\n"]
             inf = open(infile)
             os.remove('/etc/apt/sources.list')
             outf = open(outfile, 'w+')
