@@ -4,6 +4,7 @@ import subprocess, signal
 import logging
 from os.path import expanduser
 import datetime
+from lib.user_msg import user_msg
 
 
 def main():
@@ -142,8 +143,7 @@ def nmap_discover(hostip):
                           '17) Advanced Scan\n\n\n'
                           '\033[1;32mYour Selection >>\033[1;m  ')
         if value == '1':
-            print 'The list scan is a degenerate form of host discovery that simply lists each host of the network(s)\n' \
-                  'specified, without sending any packets to the target hosts.\n'
+            print user_msg['nmap_list_scan']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 time.sleep(2)
@@ -152,8 +152,7 @@ def nmap_discover(hostip):
             else:
                 break
         elif value == '2':
-            print 'This option tells Nmap not to do a port scan after host discovery, and only print out the available\n' \
-                  'hosts that responded to the host discovery probes.\n'
+            print user_msg['nmap_no_port_scan']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 time.sleep(2)
@@ -162,8 +161,7 @@ def nmap_discover(hostip):
             else:
                 break
         elif value == '3':
-            print 'This option skips the Nmap discovery stage altogether. Normally, Nmap uses this stage to determine\n' \
-                   'active machines for heavier scanning.'
+            print user_msg['nmap_no_ping_scan']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 time.sleep(2)
@@ -173,9 +171,7 @@ def nmap_discover(hostip):
                 break
         elif value == '4':
             while True:
-                print 'This option sends an empty TCP packet with the SYN flag set. The default destination port is 80\n'\
-                      'Alternate ports can be specified as a parameter.'
-
+                print user_msg['nmap_tcp_syn_ping_scan']
                 con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
                 if con == 'y':
                     ports = raw_input('\033[1;32mWhich Ports? >> \033[1;m')
@@ -187,11 +183,7 @@ def nmap_discover(hostip):
                     break
         elif value == '5':
             while True:
-                print 'The TCP ACK ping is quite similar to the SYN ping. The difference, as you could\n'\
-                      'likely guess, is that the TCP ACK flag is set instead of the SYN flag. Such an ACK packet\n'\
-                      'purports to be acknowledging data over an established TCP connection, but no such connection\n'\
-                      'exists. So remote hosts should always respond with a RST packet, disclosing their existence in\n'\
-                      'the process.'
+                print user_msg['nmap_tcp_ack_ping']
                 con = raw_input('\033[1;32mCustomize ports? (y/n) >>  \033[1;m')
                 if con == 'y':
                     ports = raw_input('\033[1;32mWhich Ports? >> \033[1;m')
@@ -203,11 +195,7 @@ def nmap_discover(hostip):
                     break
         elif value == '6':
             while True:
-                print 'Another host discovery option is the UDP ping, which sends a UDP packet to the given ports.\n'\
-                      'For most ports, the packet will be empty, though some use a protocol-specific payload that is\n'\
-                      'more likely to elicit a response. Upon hitting a closed port on the target machine, the UDP probe\n'\
-                      'should elicit an ICMP port unreachable packet in return. This signifies to Nmap that the machine\n'\
-                      'is up and available.'
+                print user_msg['nmap_udp_ping']
                 con = raw_input('\033[1;32mCustomize ports? (y/n) >>  \033[1;m')
                 if con == 'y':
                     ports = raw_input('\033[1;32mWhich Ports? >> \033[1;m')
@@ -219,13 +207,7 @@ def nmap_discover(hostip):
                     break
         elif value == '7':
             while True:
-                print 'This option sends an SCTP packet containing a minimal INIT chunk. The INIT chunk suggests to the\n'\
-                      'remote system that you are attempting to establish an association. Normally the destination port\n'\
-                      'will be closed, and an ABORT chunk will be sent back. If the port happens to be open, the target\n'\
-                      'will take the second step of an SCTP four-way-handshake by responding with an INIT-ACK chunk.\n'\
-                      'If the machine running Nmap has a functional SCTP stack, then it tears down the nascent\n'\
-                      'association by responding with an ABORT chunk rather than sending a COOKIE-ECHO chunk which would\n'\
-                      'be the next step in the four-way-handshake.'
+                print user_msg['nmap_sctp_init_ping']
                 con = raw_input('\033[1;32mCustomize ports? (y/n) >>  \033[1;m')
                 if con == 'y':
                     ports = raw_input('\033[1;32mWhich Ports? >> \033[1;m')
@@ -236,10 +218,7 @@ def nmap_discover(hostip):
                     os.system('nmap -PY ' + str(hostip))
                     break
         elif value == '8':
-            print 'In addition to the unusual TCP, UDP and SCTP host discovery types, Nmap \n \
-                  can send the standard packets sent by the ubiquitous ping program. Nmap sends an ICMP type 8\n \
-                  (echo request) packet to the target IP addresses, expecting a type 0 (echo reply) in return\n \
-                  from available hosts.'
+            print user_msg['nmap_icmp_ping']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 time.sleep(2)
@@ -248,9 +227,7 @@ def nmap_discover(hostip):
             else:
                 break
         elif value == '9':
-            print 'One of the newer host discovery options is the IP protocol ping, which sends IP packets with\n \
-                   the specified protocol number set in their IP header. The protocol list takes the same format as do\n \
-                   port lists in the previously discussed TCP, UDP and SCTP host discovery options.'
+            print user_msg['nmap_ip_proto_ping']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 time.sleep(2)
@@ -259,9 +236,7 @@ def nmap_discover(hostip):
             else:
                 break
         elif value == '10':
-            print "ARP scan puts Nmap and its optimized algorithms in charge of ARP requests. And if it gets a\n \
-                   response back, Nmap doesn't even need to worry about the IP-based ping packets since it already\n \
-                   knows the host is up. This makes ARP scan much faster and more reliable than IP-based scans."
+            print user_msg['nmap_arp_ping']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 time.sleep(2)
@@ -270,9 +245,7 @@ def nmap_discover(hostip):
             else:
                 break
         elif value == '11':
-            print 'The default behavior is normally faster, but this option is useful on networks using proxy ARP,\n \
-                  in which a router speculatively replies to all ARP requests, making every target appear to be up\n \
-                   according to ARP scan.'
+            print user_msg['nmap_no_arp_or_nd_ping']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 time.sleep(2)
@@ -281,8 +254,7 @@ def nmap_discover(hostip):
             else:
                 break
         elif value == '12':
-            print 'Traceroutes are performed post-scan using information from the scan results to determine the port\n \
-                   and protocol most likely to reach the target.'
+            print user_msg['nmap_trace_path_to_host']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 time.sleep(2)
@@ -291,8 +263,7 @@ def nmap_discover(hostip):
             else:
                 break
         elif value == '13':
-            print "Tells Nmap to never do reverse DNS resolution on the active IP addresses it finds. Since DNS can be\n"\
-                  "slow even with Nmap's built-in parallel stub resolver, this option can slash scanning times."
+            print user_msg['nmap_no_dns_resolution']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 time.sleep(2)
@@ -301,8 +272,7 @@ def nmap_discover(hostip):
             else:
                 break
         elif value == '14':
-            print 'Tells Nmap to always do reverse DNS resolution on the target IP addresses. Normally reverse DNS\n'\
-                   'is only performed against responsive (online) hosts.'
+            print user_msg['nmap_dns_resolution_for_all']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 time.sleep(2)
@@ -311,9 +281,7 @@ def nmap_discover(hostip):
             else:
                 break
         elif value == '15':
-            print 'By default, Nmap resolves IP addresses by sending queries directly to the name servers configured\n'\
-                   'on your host and then listening for responses. Many requests (often dozens) are performed in \n' \
-                   'parallel to improve performance. Specify this option to use your system resolver instead.'
+            print user_msg['nmap_use_system_dns_resolver']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 time.sleep(2)
@@ -379,8 +347,7 @@ def nmap_port(ip):
                           '15) Advanced Scan\n\n\n'
                           '\033[1;32mYour Selection >>  \033[1;m')
         if value == '1':
-            print 'SYN scan is the default and most popular scan option for good reasons. It can be performed quickly,\n' \
-                  'scanning thousands of ports per second on a fast network not hampered by restrictive firewalls. '
+            print user_msg['nmap_port_tcp_syn']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 os.system('nmap -sS ' + str(ip))
@@ -388,8 +355,7 @@ def nmap_port(ip):
             else:
                 break
         elif value == '2':
-            print 'TCP connect scan is the default TCP scan type when SYN scan is not an option. This is the case when\n' \
-                  ' a user does not have raw packet privileges.'
+            print user_msg['nmap_port_tcp_connect']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 os.system('nmap -sT ' + str(ip))
@@ -397,10 +363,7 @@ def nmap_port(ip):
             else:
                 break
         elif value == '3':
-            print 'While most popular services on the Internet run over the TCP protocol, UDP services are widely\n' \
-                  ' deployed. DNS, SNMP, and DHCP (registered ports 53, 161/162, and 67/68) are three of the most\n' \
-                  ' common. Because UDP scanning is generally slower and more difficult than TCP, some security\n' \
-                  ' auditors ignore these ports'
+            print user_msg['nmap_port_udp']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 os.system('nmap -sU ' + str(ip))
@@ -408,9 +371,7 @@ def nmap_port(ip):
             else:
                 break
         elif value == '4':
-            print 'SCTP is a relatively new alternative to the TCP and UDP protocols, combining most characteristics\n' \
-                  ' of TCP and UDP, and also adding new features like multi-homing and multi-streaming. It is mostly\n' \
-                  ' being used for SS7/SIGTRAN related services'
+            print user_msg['nmap_port_sctp_init']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 os.system('nmap -sY ' + str(ip))
@@ -418,8 +379,7 @@ def nmap_port(ip):
             else:
                 break
         elif value == '5':
-            print 'TCP NULL scan type exploits a subtle loophole in the TCP RFC to differentiate between open and\n' \
-                  ' closed ports. '
+            print user_msg['nmap_port_tcp_null']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 os.system('nmap -sN ' + str(ip))
@@ -427,8 +387,7 @@ def nmap_port(ip):
             else:
                 break
         elif value == '6':
-            print 'FIN scan type exploits a subtle loophole in the TCP RFC to differentiate between open and\n' \
-                  ' closed ports. '
+            print user_msg['nmap_port_fin']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 os.system('nmap -sF ' + str(ip))
@@ -436,8 +395,7 @@ def nmap_port(ip):
             else:
                 break
         elif value == '7':
-            print 'Xmas scan type exploits a subtle loophole in the TCP RFC to differentiate between open and\n' \
-                  ' closed ports. '
+            print user_msg['nmap_port_xmas']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 os.system('nmap -sX ' + str(ip))
@@ -445,8 +403,7 @@ def nmap_port(ip):
             else:
                 break
         elif value == '8':
-            print 'TCP ACK scan never determines open (or even open|filtered) ports. It is used to map out firewall\n' \
-                  ' rulesets, determining whether they are stateful or not and which ports are filtered.'
+            print user_msg['nmap_port_tcp_ack']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 os.system('nmap -sA ' + str(ip))
@@ -454,14 +411,7 @@ def nmap_port(ip):
             else:
                 break
         elif value == '9':
-            print 'Window scan is exactly the same as ACK scan except that it exploits an implementation detail of\n' \
-                  ' certain systems to differentiate open ports from closed ones, rather than always printing\n' \
-                  ' unfiltered when a RST is returned. It does this by examining the TCP Window field of the RST\n' \
-                  ' packets returned. On some systems, open ports use a positive window size (even for RST packets)\n' \
-                  ' while closed ones have a zero window. So instead of always listing a port as unfiltered when it\n' \
-                  ' receives a RST back, Window scan lists the port as open or closed if the TCP Window value in that\n' \
-                  " reset is positive or zero, respectively. This scan relies on an implementation detail of a\n" \
-                  " minority of systems out on the Internet, so you can't always trust it."
+            print user_msg['nmap_port_tcp_window']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 os.system('nmap -sW ' + str(ip))
@@ -469,7 +419,7 @@ def nmap_port(ip):
             else:
                 break
         elif value == '10':
-            print 'TCP Maimon scan is exactly the same as NULL, FIN, and Xmas scans, except that the probe is FIN/ACK.'
+            print user_msg['nmap_port_tcp_maimon']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 os.system('nmap -sM ' + str(ip))
@@ -478,21 +428,14 @@ def nmap_port(ip):
                 break
         elif value == '11':
             while True:
-                print 'Truly advanced Nmap users need not limit themselves to the canned scan types offered.'
+                print user_msg['nmap_port_custom_tcp']
                 flgs = raw_input('What flags would you like to set? (example: URGACKPSHRSTSYNFIN sets everything\n\n\n'
                                  '\033[1;32m>>  \033[1;m')
                 os.system('nmap --scanflags ' + str(flgs) + ' ' + str(ip))
                 if flgs == 'back':
                     break
         elif value == '12':
-            print "SCTP COOKIE ECHO scan is a more advanced SCTP scan. It takes advantage of the fact that SCTP\n" \
-                  " implementations should silently drop packets containing COOKIE ECHO chunks on open ports, but \n" \
-                  "send an ABORT if the port is closed. The advantage of this scan type is that it is not as obvious \n" \
-                  "a port scan than an INIT scan. Also, there may be non-stateful firewall rulesets blocking INIT \n" \
-                  "chunks, but not COOKIE ECHO chunks. Don't be fooled into thinking that this will make a port scan \n" \
-                  "invisible; a good IDS will be able to detect SCTP COOKIE ECHO scans too. The downside is that SCTP \n" \
-                  "COOKIE ECHO scans cannot differentiate between open and filtered ports, leaving you with the state \n" \
-                  "open|filtered in both cases."
+            print user_msg['nmap_port_sctp_cookie_echo']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 os.system('nmap -sZ ' + str(ip))
@@ -500,9 +443,7 @@ def nmap_port(ip):
             else:
                 break
         elif value == '14':
-            print "IP protocol scan allows you to determine which IP protocols (TCP, ICMP, IGMP, etc.) are supported\n"\
-                  " by target machines. This isn't technically a port scan, since it cycles through IP protocol \n" \
-                  "numbers rather than TCP or UDP port numbers."
+            print user_msg['nmap_port_ip_protocol']
             con = raw_input('\033[1;32mContinue? (y/n) >>  \033[1;m')
             if con == 'y':
                 os.system('nmap -sO ' + str(ip))
@@ -693,7 +634,7 @@ def install_vuln_tools():
         '29) unix-privesc-check', '30) yersinia', '31) All tools'
     ]
     while True:
-        print '\033[1;32mSelect one of the following Vulnerability Analysis tools to install:\033[1;m' #add vuln title
+        print '\033[1;32mSelect one of the following Vulnerability Analysis tools to install:\033[1;m'
         for i in vuln_tools_arr:
             print i
         vuln_tools_opt = raw_input('\033[1;32mYour Selection >>\033[1;m  ')
@@ -723,7 +664,7 @@ def install_wifi_tools():
         '26) wifi-honey', '27) wifitap', '28) wifite', '29) All tools'
     ]
     while True:
-        print '\033[1;32mSelect one of the following Wifi Attack tools to install:\033[1;m' #add vuln title
+        print '\033[1;32mSelect one of the following Wifi Attack tools to install:\033[1;m'
         for i in wifi_tools_arr:
             print i
         wifi_tools_opt = raw_input('\033[1;32mYour Selection >>\033[1;m  ')
@@ -1056,7 +997,7 @@ def mim_iptables():
                               '1) set\n'
                               '2) view current rules\n\n\n'
                               '\033[1;32mYour Selection >>\033[1;m')
-        if table_tgl == '1':#sslstrip should have a default port 777
+        if table_tgl == '1':
             print 'default 777'
             print 'press Enter for default\n'
             prtf = raw_input('\033[1;32mWhich port? >>\033[1;m')
@@ -1066,8 +1007,11 @@ def mim_iptables():
                 os.system('iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port 777')
                 print 'set: iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port 777'
             else:
-                print 'setting: iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port ' + str(prtf)
-                os.system('iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port ' + str(prtf))
+                print 'setting: iptables -t nat -A PREROUTING -p tcp ' \
+                      '--destination-port 80 -j REDIRECT --to-port ' + str(prtf)
+
+                os.system('iptables -t nat -A PREROUTING -p tcp '
+                          '--destination-port 80 -j REDIRECT --to-port ' + str(prtf))
                 break
         elif table_tgl == '2':
             os.system('iptables -L')
@@ -1092,8 +1036,6 @@ def mim_arpspoof():
         try:
             cmd = 'arpspoof -i ' + str(arpopt_arr[0]) + ' -t ' + str(arpopt_arr[1]) + ' ' + str(arpopt_arr[2] + ' &')
             print str(cmd)
-            #work on output
-            #os.system('arpspoof -i ' + str(arpopt_arr[0]) + ' -t ' + str(arpopt_arr[1]) + ' ' + str(arpopt_arr[2]) + ' >/dev/null 2>&1 &')
             os.system(cmd)
             break
         except IndexError:
@@ -1119,7 +1061,6 @@ def mim_sslstrip():
         portopt = raw_input('Default port 777. (Press Enter for default)\n'
                             '\033[1;32mlisten port >>\033[1;m')
         if portopt == '':
-            #os.system('sslstrip -l 777 >/dev/null 2>&1 &')
             print 'Launching sslstrip...'
             os.system('sslstrip -l 777 &')
             break
@@ -1127,7 +1068,6 @@ def mim_sslstrip():
             break
         else:
             print 'Listening on port ' + str(portopt) + '...'
-            #os.system('sslstrip -l ' + str(portopt) + ' >/dev/null 2>&1 &')
             os.system('sslstrip -l ' + str(portopt) + ' &')
 
 
@@ -1148,11 +1088,8 @@ def mim_ettercap():
             print '/// (collect entire IP range)'
             print '-w (write to pcap file)\n'
             print 'Poisoning Gateway...'
-            os.system('ettercap -T -q -M ARP /192.168.1.1/// -w /root/demo.pcap >/dev/null 2>&1 &')
-            #below requires fixing - hardcoding presumptive gateway for demo
-            #os.system('ettercap -T -q -M ARP /{0}/// -w {1}/{2}.pcap >/dev/null 2>&1 &'
-             #         .format(get_local_gateway(), expanduser('~'), ptime.strftime("%s")))
-            #os.system('ettercap -T -q -M arp:remote /' + get_local_gateway() + '/// -w ' + expanduser('~') + '/' + ptime.strftime("%s") + '.pcap >/dev/null 2>&1 &')
+            os.system('ettercap -T -q -M ARP /{0}/// -w {1}/{2}.pcap >/dev/null 2>&1 &'
+                      .format(get_local_gateway(), expanduser('~'), ptime.strftime("%s")))
 
         elif ett_opt == '2':
             while True:
@@ -1180,7 +1117,8 @@ def mim_tcpdump():
         if tcp_face == 'back':
             break
         else:
-            cmd = 'tcpdump -ni {0} -w {1}/{2}.pcap >/dev/null 2>&1 &'.format(tcp_face, expanduser('~'), t.strftime("%s"))
+            cmd = 'tcpdump -ni {0} -w {1}/{2}.pcap >/dev/null 2>&1 &'\
+                .format(tcp_face, expanduser('~'), t.strftime("%s"))
             print '\033[1;31mRunning the following command: \033[1;m'
             print cmd
             print '-i (interface)'
@@ -1189,10 +1127,7 @@ def mim_tcpdump():
             print 'sniffing...\n'
             print 'This will create a pcap file in your home dir.'
             os.system(cmd)
-            #os.system('tcpdump -ni {0} -w {1}/{2}.pcap >/dev/null 2>&1 &'
-            #          .format(tcp_face, expanduser('~'), t.strftime("%s")))
 
 
 if __name__ == "__main__":
     main()
-
