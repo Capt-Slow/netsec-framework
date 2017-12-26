@@ -1,10 +1,14 @@
+import sys
 import os
+from os.path import expanduser
 import time
 import subprocess, signal
 import logging
-from os.path import expanduser
 import datetime
 from lib.user_msg import user_msg
+
+THIS_DIR = os.path.join(__file__, os.pardir)
+LIB_PATH = os.path.abspath('lib')
 
 
 def main():
@@ -22,8 +26,8 @@ ___________                                                __
  |     \   |  | \// __ \|  Y Y  \  ___/\     (  <_> )  | \/    <
  \___  /   |__|  (____  /__|_|  /\___  >\/\_/ \____/|__|  |__|_ \/
      \/               \/      \/     \/                        \/\033[1;3m
-     - josh.ewing@qaopensource.com
-     - Version: 1
+     - netsec.framework@gmail.com
+     - Version: 1.2
      '''
         print "\033[1;31mSome functionality requires root privelages..\033[1;m \n"
         print 'Welcome, please select from the following options:'
@@ -31,6 +35,8 @@ ___________                                                __
                           '1) Install Dependencies\n'
                           '2) Nmap Scan\n'
                           '3) MITM Attacks\n'
+                          '4) Testing Labs\n'
+                          '5) Documentation\n'
                           '0) Exit\n\n\n'
                           '\033[1;32mYour Selection >>\033[1;m  ')
 
@@ -115,8 +121,17 @@ ___________                                                __
                     proc_off('tcpdump')
                 elif mimopt == 'back':
                     break
-
-        elif value == '0':
+        elif value == '4':
+            while True:
+                from lib.docker_setup import DockerConfig
+                dc = DockerConfig()
+                dc.docker_testlab_menu()
+        elif value == '5':
+            while True:
+                from lib.docs.parent_menu import ParentDocMenu
+                pdocm = ParentDocMenu()
+                pdocm.parent_doc_menu()
+        if value == '0':
             exit()
 
 
