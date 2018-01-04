@@ -1,5 +1,5 @@
 # import sys
-# import os
+import os
 # sys.path.append('../')
 # sys.path.append('../../')
 # sys.path.append('{root_path}/netsec-framework/'.format(root_path=os.path.expanduser('~')))
@@ -26,10 +26,22 @@ class InfoGathering(object):
                                   '\033[1;32mYour Selection >>\033[1;m  '
                                   )
             if info_opts == '1':
-                print 'Web Spidering Info goes here..'
+                self.read_doc('web_spidering.txt')
+                print 'https://en.wikipedia.org/wiki/Web_crawler\n'
+                break
+            elif info_opts == '2':
+                self.read_doc('user_dir_web_spidering.txt')
+                print '\n'
                 break
             elif info_opts == '0':
                 docm = DocMenu()
                 docm.doc_menu()
             elif info_opts == 'back':
                 main()
+
+    def read_doc(self, section):
+        file_path = os.path.expanduser('~') + '/netsec-framework/lib/docs/security_guides/info_gathering/man_pages'
+        with open('{file_path}/{opts}'.format(file_path=file_path, opts=section)) as data:
+            for i in data:
+                print i.strip('\n')
+

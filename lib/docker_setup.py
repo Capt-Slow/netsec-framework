@@ -16,7 +16,8 @@ class DockerConfig(object):
                                    '2) Damn Vulnerable Web App\n'
                                    '3) Metasploitable\n'
                                    '4) NOWASP\n'
-                                   '5) Vulnerable Network\n\n\n'
+                                   '5) Vulnerable Network\n'
+                                   '6) Kali Docker Image\n\n\n'
                                    '\033[1;32mYour Selection >>\033[1;m')
             if docker_opt == '1':
                 self.auto_install_docker()
@@ -49,7 +50,17 @@ class DockerConfig(object):
                     self.docker_shutdown_container('nowasp')
                     break
             elif docker_opt == '5':
-                print 'PLACEHOLDER: Vulnerable Network'
+                print 'This launches DVWA and a Debian container.\n' \
+                      'The Debian container will continuously attempt requests to login to DVWA. \n' \
+                      'This provides a contained lab to practice/execute ' \
+                      'MIM credential harvesting attacks.\n'
+                vuln_net_opts = raw_input('1) Pull & Start Docker Containers\n'
+                                          '2) Stop Containers\n\n\n'
+                                          '\033[1;32mYour Selection >>\033[1;m')
+                if vuln_net_opts == '1':
+                    self.docker_pull_and_run_images('dvwa')
+                    self.docker_pull_and_run_images('mimdebian')
+                    break
             elif docker_opt == 'back':
                 main()
 
@@ -82,7 +93,7 @@ class DockerConfig(object):
         if cont_name == 'dvwa':
             os.system('sudo docker pull netsecframework/dvwa:vulnstackone')
             print 'Starting container...\n\n'
-            os.system('sudo docker run -d -p 80:80 netsecframework/dvwa')
+            os.system('sudo docker run -d -p 80:80 netsecframework/dvwa:vulnstackone')
             print '\033[1;32mNavigate to http://localhost . Click Create/Reset Database.\n' \
                   'Default credentials are admin/password.\033[1;m'
         elif cont_name == 'meta':
@@ -95,6 +106,16 @@ class DockerConfig(object):
             os.system('sudo docker run -d -p 80:80 netsecframework/nowasp')
             print '\033[1;32mNavigate to http://localhost . Click Create/Reset Database.\n' \
                   'Default credentials are admin/password.\033[1;m'
+        elif cont_name == 'mimdebian':
+            os.system('sudo docker pull netsecframework/mimdebian:latest')
+            print 'Starting container...\n\n'
+            os.system('sudo docker run -dit netsecframework/mimdebian')
+            os.system('cd lib && sudo docker build -t traffic .')
+            os.system('sudo docker run -d traffic')
+        elif cont_name == 'kali':
+            os.system('sudo docker pull kalilinux/kali-linux-docker')
+            print 'Starting container...\n\n'
+            os.system('sudo docker run -dit kalilinux/kali-linux-docker')
 
     def docker_find_container(self, cont_name):
         print '\033[1;32mFinding Docker container...\n\033[1;m'
@@ -126,22 +147,48 @@ class DockerConfig(object):
                 return str(find_container_id[0])
             except IndexError:
                 print 'No Containers running..'
+        elif cont_name == 'mimdebian':
+            proc = subprocess.Popen(["sudo docker ps | grep -i 'netsecframework/mimdebian'"], stdout=subprocess.PIPE,
+                                    shell=True)
+            (out, err) = proc.communicate()
+            find_container_id = out.split()
+            try:
+                return str(find_container_id[0])
+            except IndexError:
+                print 'No Containers running..'
+        elif cont_name == 'kali':
+            proc = subprocess.Popen(["sudo docker ps | grep -i 'kalilinux/kali-linux-docker'"], stdout=subprocess.PIPE,
+                                    shell=True)
+            (out, err) = proc.communicate()
+            find_container_id = out.split()
+            try:
+                return str(find_container_id[0])
+            except IndexError:
+                print 'No Containers running..'
 
     def docker_shutdown_container(self, cont_name):
         if cont_name == 'dvwa':
-            cmd = "sudo docker stop {container}".format(container=self.docker_find_container('dvwa'))
+            cmd = "sudo docker kill {container}".format(container=self.docker_find_container('dvwa'))
             proc = subprocess.Popen([str(cmd)], stdout=subprocess.PIPE, shell=True)
             (out, err) = proc.communicate()
             print '\n\033[1;32mContainer off..\033[1;m'
         elif cont_name == 'meta':
-            cmd = "sudo docker stop {container}".format(container=self.docker_find_container('meta'))
+            cmd = "sudo docker kill {container}".format(container=self.docker_find_container('meta'))
             proc = subprocess.Popen([str(cmd)], stdout=subprocess.PIPE, shell=True)
             (out, err) = proc.communicate()
             print '\n\033[1;32mContainer off..\033[1;m'
         elif cont_name == 'nowasp':
-            cmd = "sudo docker stop {container}".format(container=self.docker_find_container('nowasp'))
+            cmd = "sudo docker kill {container}".format(container=self.docker_find_container('nowasp'))
             proc = subprocess.Popen([str(cmd)], stdout=subprocess.PIPE, shell=True)
             (out, err) = proc.communicate()
             print '\n\033[1;32mContainer off..\033[1;m'
-
-
+        elif cont_name == 'mimdebian':
+            cmd = "sudo docker kill {container}".format(container=self.docker_find_container('mimdebian'))
+            proc = subprocess.Popen([str(cmd)], stdout=subprocess.PIPE, shell=True)
+            (out, err) = proc.communicate()
+            print '\n\033[1;32mContainer off..\033[1;m'
+        elif cont_name == 'kali':
+            cmd = "sudo docker kill {container}".format(container=self.docker_find_container('kali'))
+            proc = subprocess.Popen([str(cmd)], stdout=subprocess.PIPE, shell=True)
+            (out, err) = proc.communicate()
+            print '\n\033[1;32mContainer off..\033[1;m'

